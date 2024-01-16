@@ -16,7 +16,7 @@ const EditBenefitForm = ({id, title, description}) => {
     try {
         // console.warn(newTitle, newDescription);
 
-        const res = await fetch(`http://localhost:3000/api/benefits/${id}`, {
+        const res = await fetch(`https://astro-dev-admin.vercel.app/api/benefits/${id}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
