@@ -21,6 +21,8 @@
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.3",
+    "cookie": "^0.6.0",
+    "cookies-next": "^4.1.0",
     "cors": "^2.8.5",
     "crypto-random-string": "^5.0.0",
     "cryptr": "^6.3.0",

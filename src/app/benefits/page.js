@@ -14,7 +14,7 @@ export default  function  benefits({id}) {
   useEffect (  () => {   
     const fetchData = async () =>{
       try {
-        const {data: response} = await axios.get('https://astro-dev-admin.vercel.app/api/benefits');
+        const {data: response} = await axios.get(`${process.env.APP_URL}/api/benefits`);
         setSessions(response.benefits);
         console.log(response ,"RESPONSE")
       } catch (error) {
@@ -22,6 +22,7 @@ export default  function  benefits({id}) {
       }
     }
     fetchData();
+    console.log(fetchData(), "hello")
   }, []);
 
 
@@ -30,7 +31,7 @@ export default  function  benefits({id}) {
     
     if (confirmDelete) {
       try {
-        const res = await fetch(`https://astro-dev-admin.vercel.app/api/benefits?id=${itemId}`, {
+        const res = await fetch(`http://localhost:3000/api/benefits?id=${itemId}`, {
           method: "DELETE",
         });
   

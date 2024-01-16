@@ -18,9 +18,8 @@ const NewBenefit = () => {
       return;
     }
     console.log("result", title, "description", description)
-
     try{
-      const res = await fetch(`https://astro-dev-admin.vercel.app/api/benefits`, {  
+      const res = await fetch(`http://localhost:3000/api/benefits`, {  
         method: 'post',
         headers: {
           'content-type': 'application/json'

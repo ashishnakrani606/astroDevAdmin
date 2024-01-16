@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import Image from "next/image";
@@ -25,11 +25,10 @@ import Policies from "@/assets/images/icon/Policies.svg";
 import Bechopro from "@/assets/images/icon/Bechopro.svg";
 // import BreadCrumb from "@/components/ui/BreadCrumb";
 
-const Header = ({ showMobmenu, showsidebar, showDesktop }) => {
+const Header = ({ showMobmenu }) => {
   const { systemTheme, theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  let currentLink = '';
 
   useEffect(() => {
     setMounted(true);
@@ -188,8 +187,8 @@ const Header = ({ showMobmenu, showsidebar, showDesktop }) => {
     setisopen(!isopen);     
   };  
 
-  // let curl = useRouter();
-  // const location = curl.pathname;
+  let curl = useRouter();
+  const location = curl.pathname;
   return (
     <>
       <div className="border-b border-black/10 dark:border-white/10 relative z-10">

@@ -66,10 +66,32 @@ body {
   border-radius: 50px;
 }
 .faq-comp::-webkit-scrollbar-track {
-  background-color: #f1f5f9;
+  background-color: transparent;
 }
 .faq-comp::-webkit-scrollbar-thumb {
-  background: #dddddd; 
+  background: #cfdce5; 
+}
+.main-editor .public-DraftStyleDefault-block {
+  margin: 0px;
+}
+.main-editor .rdw-editor-toolbar > div.rdw-inline-wrapper {
+  display: block;
+}
+.main-editor .rdw-editor-toolbar > div {
+  display: none;
+}
+.main-editor .rdw-editor-toolbar {
+  background-color: #f5f5f4!important;
+  border-radius: 7px 7px 0 0 !important;
+}
+.main-editor .editorarea .public-DraftEditorPlaceholder-root,.main-editor .editorarea span {
+  font-size: 1rem;
+}
+.dark .rdw-editor-toolbar .rdw-option-wrapper img {
+  filter: invert(0%);
+}
+.popup-form{
+  width: calc(100% - 40px);
 }
 .auth-bg {
   background: radial-gradient(85.9% 85.9% at 82.11% 8.01%, #6EF195 25.79%, #00E3FD 100%), #F7F9FB;

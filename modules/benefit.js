@@ -1,5 +1,4 @@
 import mongoose, {  models  } from "mongoose";
-
 const benefitSchema = new mongoose.Schema({
         title: {
         type: String,

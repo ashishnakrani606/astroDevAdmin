@@ -16,7 +16,7 @@ const NewDraft = () => {
   
     const handleSave = async () => {
       console.log("result", title, "description", description)
-      let result = await fetch('https://astro-dev-admin.vercel.app/add-data', {
+      let result = await fetch('http://localhost:5000/add-data', {
         method: 'post',
         body: JSON.stringify({ title, description }),
         headers: {

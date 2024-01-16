@@ -1,13 +1,16 @@
 import Benefit from "../../../../modules/benefit";
 import { NextResponse } from "next/server";
 import {connectMongoDb, disconnectMongoDb} from '../../../../library/mongodb';
-// import Cors from "cors";
-import bcrypt from 'bcrypt';
-import { ObjectId  } from 'mongodb';
+import Cors from 'cors';
+// import { runMiddleware } from '../../../../library/middleware'; // Create this file with the provided function
 
-
+// const cors = Cors({
+// //   origin: 'http://localhost:3000', // Replace with your frontend URL
+//   methods: ['GET', 'POST', 'DELETE'],
+// });
 
 export async function POST (request){
+    // await runMiddleware(req, res, cors);
     const{title, description} = await request.json();
     await connectMongoDb();
     await Benefit.create({title, description});
@@ -15,6 +18,7 @@ export async function POST (request){
 }
 
 export async function GET(){
+    // await runMiddleware(req, res, cors);
     await connectMongoDb();
     const benefits = await Benefit.find();
     console.log(benefits)
@@ -22,11 +26,11 @@ export async function GET(){
 
 }
 export async function DELETE(request){
+    // await runMiddleware(req, res, cors);
     const id = request.nextUrl.searchParams.get("id");
     await connectMongoDb();
-    await Benefit.findByIdAndDelete(id);    
+    await Benefit.findByIdAndDelete(id);        
     return NextResponse.json({message:"topic delete"}, {status:201});
-
 }
 // export const POST = async (req) => {
 //     try {

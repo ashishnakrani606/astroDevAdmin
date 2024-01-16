@@ -1,25 +1,34 @@
-import { NextResponse } from 'next/server';
+export { default } from 'next-auth/middleware'
+import { NextResponse } from 'next/server'
 
 export function middleware(request) {
-  // if (request.nextUrl.pathname !== "/login") {
-  //   console.log("Middleware: Redirecting ");
-  //   return NextResponse.redirect(new URL("/login", request.url), {
-  //     status: 303,
-  // });
-  // }
 
-  // if (request.nextUrl.pathname.startsWith('/login')) {
-  //   return NextResponse.rewrite(new URL('/', request.url))
-  // }
-  
-  // console.log("Middleware: Allowing access ");
-  // return NextResponse.next();
+  const url = request.nextUrl.clone();
+  let session = request.cookies.get("logged"); // cookie kyathi set thay che?
+console.log("session",session)
+  if(!session){ 
+    if(!request.nextUrl.pathname.startsWith("/login")) {
+      return NextResponse.redirect(new URL("/login", request.url)); 
+    }
+  } else{
+    // if(url.pathname === "/"){
+    //   url.pathname = "/dashboard";
+    //   return NextResponse.redirect(url);
+    // }
+  }
 
-  // if(request.nextUrl.pathname!="/login") {
-  //   return NextResponse.redirect(new URL("/login",request.url ))
-  // }
 }
 
 export const config = {
-  matcher: ["/forget-password/:path*"]
+    matcher:
+        [    "/",   
+            "/faq",
+            "/edit/benefit",
+            "/add-faq",
+            "/add-user-reflection",
+            "/benefits",
+            "/new-benefit",
+            // "/reset-password",
+            "/user-reflection"   
+        ]
 }
