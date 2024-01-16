@@ -21,5 +21,5 @@ export function middleware(request) {
 }
 
 export const config = {
-  // matcher: ["/forget-password/:path*"]
+  matcher: ["/forget-password/:path*"]
 }
