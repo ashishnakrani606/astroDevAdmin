@@ -16,7 +16,7 @@ const EditBenefitForm = ({id, title, description}) => {
     try {
         // console.warn(newTitle, newDescription);
 
-        const res = await fetch(`http://localhost:3000/api/benefits/${id}`, {
+        const res = await fetch(process.env.APP_URL+`/api/benefits/${id}`, {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json'

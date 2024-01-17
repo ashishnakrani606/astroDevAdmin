@@ -14,7 +14,7 @@ function category({ onClose }) {
   const fetchDataAndSave = async () => {
     setLoader(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/categories`,
+      const res = await fetch(`${process.env.APP_URL}/api/categories`,
       // const res = await fetch(`http://localhost:3000/api/categories`,
        {
         method: "post",

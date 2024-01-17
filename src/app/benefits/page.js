@@ -31,7 +31,7 @@ export default  function  benefits({id}) {
     
     if (confirmDelete) {
       try {
-        const res = await fetch(`http://localhost:3000/api/benefits?id=${itemId}`, {
+        const res = await fetch(process.env.APP_URL+`/api/benefits?id=${itemId}`, {
           method: "DELETE",
         });
   
