@@ -17,14 +17,14 @@ const NewBenefit = () => {
       alert("title and descrption are require.");
       return;
     }
-    console.log("result", title, "description", description)
+    console.log(title , description)
     try{
-      const res = await fetch(`http://localhost:3000/api/benefits`, {  
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/benefits`, {  
         method: 'post',
         headers: {
           'content-type': 'application/json'
         },
-        body: JSON.stringify({ title, description }),
+        body: JSON.stringify({ title, description}),
        
     });
     if (res.ok){
@@ -61,17 +61,16 @@ const NewBenefit = () => {
       <Layout>
         <div className='flex justify-between items-center'>
           <div className='flex'>
-            <button className='flex items-center justify-center text-base px-2 py-1 h-auto border border-[#fff] hover:border hover:!border-[#000000] transition-all duration-500  border-black/20 dark:border-white/20 rounded' onClick={goBack}>
+            <button className='flex items-center justify-center text-base px-2 py-1 h-auto text-black border border-[#fff] hover:border hover:!border-[#000000] transition-all duration-500  border-black/20 dark:border-white/20 rounded' onClick={goBack}>
               <svg fill="#000" width="20px" height="20px" viewBox="0 0 24 23" xmlns="http://www.w3.org/2000/svg" enableBackground="new 0 0 24 24"><path d="M8.5,12.8l5.7,5.6c0.4,0.4,1,0.4,1.4,0c0,0,0,0,0,0c0.4-0.4,0.4-1,0-1.4l-4.9-5l4.9-5c0.4-0.4,0.4-1,0-1.4c-0.2-0.2-0.4-0.3-0.7-0.3c-0.3,0-0.5,0.1-0.7,0.3l-5.7,5.6C8.1,11.7,8.1,12.3,8.5,12.8C8.5,12.7,8.5,12.7,8.5,12.8z" /></svg>
               Posts
-            </button>
-            <span className='ml-7 text-base p-2'>Edit</span>
+            </button>            
           </div>
         </div>
         <div className='container !px-1'>
           <div className='md:max-w-[75%] max-w-[100%] w-full bg-[#f7f7f7] xl:px-10 xl:py-8 px-7 py-6 rounded-2xl mt-24 mx-auto'>
 
-            <h1 className='mx-auto'><input className='bg-inherit xl:text-[34px] md:text-[28px] text-black text-[22px] w-full font-medium border-b-2 pb-2' type="text" onChange={(e) => {
+            <h1 className='mx-auto'><input className='bg-inherit xl:text-[34px] md:text-[28px] text-black text-[22px] w-full font-medium border-b-2 pb-2 focus:outline-none' type="text" onChange={(e) => {
               setTitle(e.target.value)
             }} value={title} placeholder='Add title' /></h1>
             <div className='lg:mt-6 md:mt-4 mt-3'>

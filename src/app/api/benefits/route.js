@@ -9,6 +9,7 @@ import Cors from 'cors';
 //   methods: ['GET', 'POST', 'DELETE'],
 // });
 
+
 export async function POST (request){
     // await runMiddleware(req, res, cors);
     const{title, description} = await request.json();
@@ -16,6 +17,22 @@ export async function POST (request){
     await Benefit.create({title, description});
     return NextResponse.json({ title, description }, {status:201});
 }
+
+
+// export async function POST(request) {
+//     const session = await getSession({ req: request.req });
+//     if (!session) {
+//       // If user is not authenticated, return an error response
+//       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+//     }
+//     const { title, description } = await request.json();
+//     await connectMongoDb(); 
+//     // Create a new benefit entry with the user's session information
+//     await Benefit.create({ title, description, createdBy: session.user.id });
+//     return NextResponse.json({ title, description }, { status: 201 });
+//   }
+
+
 
 export async function GET(){
     // await runMiddleware(req, res, cors);
@@ -25,6 +42,9 @@ export async function GET(){
     return NextResponse.json({benefits, message: "Users fetched successfully..."});
 
 }
+
+
+
 export async function DELETE(request){
     // await runMiddleware(req, res, cors);
     const id = request.nextUrl.searchParams.get("id");

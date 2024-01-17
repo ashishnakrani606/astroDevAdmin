@@ -1,50 +1,94 @@
-"use client"
-import React, { useState, useRef } from "react"
+  "use client"
+import React, { useState, useEffect  } from "react"
 import Button from "./../../app/components/ui/Button";
+import { useRouter } from 'next/navigation';
+import Loadercomponenets from "../components/loder/index";
+
 
 function category({ onClose }) {
   const [categorydata, setcategorydata] = useState("");
-  const [previewImage, setPreviewImage] = useState(null);
+  const [loader, setLoader] = useState(false);  
+  const router = useRouter();
 
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const handleFileChange = (event) => {
 
-    const file = event.target.files[0];
-
-    // Create a preview URL for the selected file
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setPreviewImage(reader.result);
-    };
-    if (file) {
-      reader.readAsDataURL(file);
+  const fetchDataAndSave = async () => {
+    setLoader(true);
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_APP_URL}/api/categories`,
+      // const res = await fetch(`http://localhost:3000/api/categories`,
+       {
+        method: "post",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ categorydata }),
+      });
+      console.log(categorydata);
+      if (res.ok) {
+        router.push("/categories");
+        location.reload();       
+        closePopup();
+      } else {
+        throw new Error("Failed to create category");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const handleSave = async () => {
-    if(!categorydata){
-      alert("title and descrption are require.");
-      return;
+const handleSave = async () => {
+  if (!categorydata) {
+    alert("Title and description are required.");
+    return;
+  }
+
+  // Execute the common logic
+  await fetchDataAndSave();
+};
+
+
+
+// useEffect(() => {
+//   const fetchData = async () => {    
+
+//     try{
+//       const res = await fetch(`http://localhost:3000/api/categories`, {  
+//         method: 'post',
+//         headers: {
+//           'content-type': 'application/json'
+//         },
+//         body: JSON.stringify({ categorydata }),
+//       });
+//       console.log(categorydata)
+//       if (res.ok){
+//       // router.push("/categories");
+//       // location.reload();   
+
+//       router.push("/categories").then(() => location.reload());
+//           }else{
+//             throw new Error ("failed to a create topic")    
+//           }}
+//            catch (error){
+//       console.log(error)
+//   }};
+//   fetchData();
+// }, []); 
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      // Your fetch data logic here
+      // Note: Make sure to replace this with your actual fetch logic
+      console.log("Fetching data...");
+    } catch (error) {
+      console.log(error);
     }
-    console.log("category", categorydata)
-    try{
-      const res = await fetch(`http://localhost:3000/api/categories`, {  
-        method: 'post',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({ categorydata }),
-    });
-    if (res.ok){
-      // router.push("/categories");
-          }else{
-            throw new Error ("failed to a create topic")    
-          }
-  }
-  catch (error){
-      console.log(error)
-  }
-}
+  };
+
+  fetchData();
+}, []);
+
+
   // form Validate start
   // const [formData, setFormData] = useState({
   //   name: '',
@@ -84,9 +128,7 @@ function category({ onClose }) {
   // };
   
   // form Validate end
-  const closePopup = () => {
-    setIsPopupOpen(false);
-  };
+
 
   return (
     <div className="fixed top-[0%] left-[0%] w-full h-[100vh] backdrop-blur-md z-50">
@@ -98,23 +140,34 @@ function category({ onClose }) {
         <div  className="w-full xl:max-w-[700px] md:max-w-[660px] border lg:mt-6 mt-4 rounded-md mx-auto border-none">
           <div className="flex flex-col xl:gap-3 gap-2 w-full">
             <div className="">
-            <h1 className='mx-auto'><input className='bg-inherit xl:text-[34px] md:text-[28px] text-black text-[22px] w-full font-medium border-b-2 pb-2' type="text" onChange={(e) => {
+            <input onChange={(e) => {
               setcategorydata(e.target.value)
-            }} value={categorydata} placeholder='Add title' /></h1>
-              
+            }} value={categorydata} type="text" id="name" name="name"  placeholder="Add Category Name" className="focus:outline-none text-black w-full xl:py-3 xl:px-4 py-2 px-3 xl:text-base text-sm rounded-md border border-slate-100 bg-stone-100" />                            
               {/* <span style={{ color: 'red', display: "block", marginTop: '2px' }}>{errors.name}</span> */}
             </div>
             <div className="flex justify-end gap-x-2 mt-2">
               {/* <button onClick={handleSave} className="w-full max-w-[180px] p-2 border-2 border-green-600 hover:border-green-500 !bg-green-600 hover:!bg-green-500 rounded-md font-medium text-white transition lg:text-lg text-md tracking-wide block"> Save </button> */}
-              <Button
+              <button
+              onClick={handleSave}
+                  type="submit"
+                  className="md:!text-lg !text-base !py-2 !px-10  !bg-green-600 hover:!bg-green-500 !text-white rounded-md">
+                  {loader && <Loadercomponenets />}
+                  {!loader && "Save"}
+                </button>
+              
+              {/* <Button
                 name={"Save"} 
                 secondary={"false"}
                 color={"blacklight"}
-                onClick={handleSave}
+                onClick={() => {
+                  handleSave();
+                 
+                }}
+                // onClick={handleSave}
                 className={
                   "md:!text-lg !text-base !py-2 !px-10  !bg-green-600 hover:!bg-green-500 !text-white"
                 }
-              />
+              /> */}
             </div>
           </div>
         </div>

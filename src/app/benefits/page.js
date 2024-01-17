@@ -14,7 +14,8 @@ export default  function  benefits({id}) {
   useEffect (  () => {   
     const fetchData = async () =>{
       try {
-        const {data: response} = await axios.get(`${process.env.APP_URL}/api/benefits`);
+        const {data: response} = await axios.get(`${process.env.NEXT_PUBLIC_APP_URL}/api/benefits`);
+        // const {data: response} = await axios.get(`http://localhost:3000/api/benefits`);
         setSessions(response.benefits);
         console.log(response ,"RESPONSE")
       } catch (error) {
@@ -24,7 +25,6 @@ export default  function  benefits({id}) {
     fetchData();
     console.log(fetchData(), "hello")
   }, []);
-
 
   const Removeitem = async (itemId) => {
     const confirmDelete = window.confirm("Are you sure?");
@@ -46,7 +46,6 @@ export default  function  benefits({id}) {
       }
     }
   };
-
  
   return (
     <Layout>
