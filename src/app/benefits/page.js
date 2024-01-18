@@ -12,9 +12,10 @@ export default  function  benefits({id}) {
   const router = useRouter();
 
   useEffect (  () => {   
+    const path = process.env.ADMIN_URL;
     const fetchData = async () =>{
       try {
-        const {data: response} = await axios.get(process.env.ADMIN_URL + '/api/benefits');
+        const {data: response} = await axios.get(path + '/api/benefits');
         setSessions(response.benefits);
         console.log(response ,"RESPONSE")
       } catch (error) {
