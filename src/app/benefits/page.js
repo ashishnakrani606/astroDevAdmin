@@ -15,7 +15,7 @@ export default  function  benefits({id}) {
     const fetchData = async () =>{
       try {
         // const {data: response} = await axios.get(`${process.env.APP_URL}/api/benefits`);
-        const {data: response} = await axios.get(`http://localhost:3000/api/benefits`);
+        const {data: response} = await axios.get(process.env.NEXT_PUBLIC_APP_URL+`/api/benefits`);
         setSessions(response.benefits);
         console.log(response ,"RESPONSE")
       } catch (error) {
@@ -31,7 +31,7 @@ export default  function  benefits({id}) {
     
     if (confirmDelete) {
       try {
-        const res = await fetch(`http://localhost:3000/api/benefits?id=${itemId}`, {
+        const res = await fetch(process.env.NEXT_PUBLIC_APP_URL+`/api/benefits?id=${itemId}`, {
           method: "DELETE",
         });
   
