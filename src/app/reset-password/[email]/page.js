@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from "react";
+// import axios from "axios";
+// import { ToastContainer, toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Loadercomponenets from "../../components/loder/index"
 
 export default function ResetPassword({
   params,
@@ -79,14 +81,12 @@ export default function ResetPassword({
               />
             </div>
             <div className="mt-5 mb-5">
-            <button
-                  type="submit"
-                  className="py-3 text-base btn transition-all duration-500 px-2 rounded-lg leading-[18px] dark:text-white
-                  text-white bg-blacklight dark:bg-secondary-purpleb dark:hover:bg-[#b8b8e6] hover:bg-opacity-90 w-full">
-                  {loading && <Loadercomponenets />}
-                  {!loading && "Submit"}
-                </button>
-
+              <button
+                type="submit"
+                className="bg-black rounded-md cursor-pointer block max-w-[580px] w-full px-2 py-2.5 text-white"
+              >
+                Submit
+              </button>
             </div>
             <div className="mt-5 text-center">
               <Link href="/login" className="text-black">

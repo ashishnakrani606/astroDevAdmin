@@ -6,7 +6,7 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 const registerPage = async () => {
   const session = await getServerSession(authOptions);
   if (session) {
-    redirect("/login");
+    redirect("/dashboard");
   }
 
   return (

@@ -18,4 +18,3 @@ export async function GET (request, {params}){
     const category = await Category.findOne( {_id: id});
     return NextResponse.json({category}, {status:201});
 }
-

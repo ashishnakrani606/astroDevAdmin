@@ -1,4 +1,5 @@
 "use client";
+import Loder from "../../components/loder/index";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -8,19 +9,18 @@ import AuthLayout from "@/layouts/authlayout";
 import Auth from "../../components/ui/auth";
 import Button from "../../components/ui/Button";
 import Google from "@/assets/images/icon/google.svg";
-import { setCookie } from "cookies-next";
-import Loadercomponenets from "../../components/loder/index";
+import {  setCookie } from "cookies-next";
 
 const login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loader, setLoader] = useState(false);
+  const [loder, setLoder] = useState(false);
   const router = useRouter();
 
   const loginSubmitForm = async () => {
-    setLoader(true);
     try {
+      setLoder(true);
       const response = await signIn("credentials", { 
         email,
         password,
@@ -29,7 +29,7 @@ const login = () => {
       console.log("Authentication response:", response);
 
       if (response && response.error) {
-        setLoader(false);
+        setLoder(false);
         setError("Invalid wrong information");
         return;
       } else {
@@ -37,10 +37,9 @@ const login = () => {
         console.log("setCookie",setCookie)
         router.replace("/"); 
       }
-      setLoader(false);
+      setLoder(false);
     } catch (error) {
-      setLoader(false);
-      setError("Invalid wrong information");
+      setLoder(false);
       console.log("error", error);
     }
   };
@@ -58,7 +57,7 @@ const login = () => {
 
   return (
     <>
-          <AuthLayout className={"flex justify-center"}>
+      <AuthLayout className={"flex justify-center"}>
         <div className="w-full max-w-[680px] sm:pt-[186px] sm:pb-[100px] py-[100px]">
           <Auth className={"md:relative !top-0"}>
             <div className="pt-5 flex items-center flex-col">
@@ -107,17 +106,11 @@ const login = () => {
               </div>
 
               <button
-                  type="submit"
-                  className="py-3 text-base btn transition-all duration-500 px-2 rounded-lg leading-[18px] dark:text-white
-                  text-white bg-blacklight dark:bg-secondary-purpleb dark:hover:bg-[#b8b8e6] hover:bg-opacity-90 w-full">
-                  {loader && <Loadercomponenets />}
-                  {!loader && "Log in"}
-                </button>
-              {error && (
-              <div className="bg-red-500 text-white text-sm py-1 rounded-sm mt-2 text-center mb-4">
-                {error}
-              </div>
-            )}
+                type="submit"
+                className="bg-black rounded-md mb-2 cursor-pointer block max-w-[680px] w-full px-2 py-3 text-white"
+              >
+                Log in
+              </button>
 
               <div className="mb-2 text-sm text-red-950 cursor-pointer">
                 Forgot Password ?{" "}
