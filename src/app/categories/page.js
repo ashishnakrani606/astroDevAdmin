@@ -10,7 +10,7 @@ const Category = () => {
   useEffect (  () => {   
     const fetchData = async () =>{
       try {
-        const {data: response} = await axios.get(process.env.APP_URL/"api/categories");
+        const {data: response} = await axios.get(process.env.NEXT_PUBLIC_APP_URL/"api/categories");
         setCategoryItem(response.categories);
         console.log(response ,"RESPONSE")
       } catch (error) {

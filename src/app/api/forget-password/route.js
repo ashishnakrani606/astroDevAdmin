@@ -34,13 +34,13 @@ export const POST = async (req) => {
 
         // * Encrypt user email
 
-        console.log('Cryptr created:', process.env.NEXTAUTH_SECRET);
-        const crypt = new Cryptr(process.env.NEXTAUTH_SECRET);
+        console.log('Cryptr created:', process.env.NEXT_PUBLIC_NEXTAUTH_SECRET);
+        const crypt = new Cryptr(process.env.NEXT_PUBLIC_NEXTAUTH_SECRET);
         
         const encryptedEmail = crypt.encrypt(user.email);
         console.log('Encrypted Email:', encryptedEmail);
         
-        const url = `${process.env.APP_URL}/reset-password/${encryptedEmail}?signature=${randomStr}`;
+        const url = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password/${encryptedEmail}?signature=${randomStr}`;
         try {
             const html = render(
                 ForgotPasswordEmail({

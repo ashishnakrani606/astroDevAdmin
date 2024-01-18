@@ -12,7 +12,7 @@ export default  function  benefits({id}) {
   const router = useRouter();
 
   useEffect (  () => {   
-    const path = process.env.ADMIN_URL;
+    const path = process.env.NEXT_PUBLIC_ADMIN_URL;
     const fetchData = async () =>{
       try {
         const {data: response} = await axios.get(path + '/api/benefits');
