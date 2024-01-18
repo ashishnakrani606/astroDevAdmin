@@ -14,7 +14,7 @@ export default  function  benefits({id}) {
   useEffect (  () => {   
     const fetchData = async () =>{
       try {
-        const {data: response} = await axios.get(`https://astro-dev-admin.vercel.app/api/benefits`);
+        const {data: response} = await axios.get(process.env.APP_URL + '/api/benefits');
         setSessions(response.benefits);
         console.log(response ,"RESPONSE")
       } catch (error) {
