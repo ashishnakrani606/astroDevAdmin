@@ -28,7 +28,7 @@ function category({ onClose }) {
     console.log("category", category)
 
     try{
-      const res = await fetch(process.env.NEXT_PUBLIC_APP_URL+`/api/categories`, {  
+      const res = await fetch(`http://localhost:3000/api/categories`, {  
         method: 'post',
         headers: {
           'content-type': 'application/json'

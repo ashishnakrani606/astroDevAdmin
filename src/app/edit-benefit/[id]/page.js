@@ -3,7 +3,7 @@ import EditBenefitForm from 'src/app/components/astrodev/EditBenefitform';
 
 const getBenefitById = async (id) => {
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_APP_URL+`/api/benefits/${id}`, {
+    const res = await fetch(`http://localhost:3000/api/benefits/${id}`, {
       cache: 'no-store',
     });
 

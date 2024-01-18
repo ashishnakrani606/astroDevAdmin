@@ -8,7 +8,7 @@ import User from "../../../../modules/user";
 export async function POST(request) {
   const payload = await request.json();
 
-  const crypter = new Cryptr(process.env.NEXT_PUBLIC_NEXTAUTH_SECRET);
+  const crypter = new Cryptr(process.env.NEXTAUTH_SECRET);
   const email = crypter.decrypt(payload.email);
 
   try {
