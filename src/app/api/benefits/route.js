@@ -1,114 +1,51 @@
 import Benefit from "../../../../modules/benefit";
 import { NextResponse } from "next/server";
-import {connectMongoDb, disconnectMongoDb} from '../../../../library/mongodb';
-import Cors from 'cors';
-// import { runMiddleware } from '../../../../library/middleware'; // Create this file with the provided function
+import { connectMongoDb } from "../../../../library/mongodb";
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth';
 
-// const cors = Cors({
-// //   origin: 'http://localhost:3000', // Replace with your frontend URL
-//   methods: ['GET', 'POST', 'DELETE'],
-// });
 
-export async function POST (request){
-    // await runMiddleware(req, res, cors);
-    const{title, description} = await request.json();
-    await connectMongoDb();
-    await Benefit.create({title, description});
-    return NextResponse.json({ title, description }, {status:201});
+export async function POST(request) {
+    try {
+        // await runMiddleware(request, cors); 
+        const session = await getServerSession(authOptions);
+        console.log(session)
+        if (!session) {
+            throw new Error("Unauthorized !...........");
+        }
+        const { title, description } = await request.json();
+        await connectMongoDb();
+        await Benefit.create({ title, description });
+        return NextResponse.json({ title, description }, { status: 201 });
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({ error: 'Authentication failed' }, { status: 401 });
+    }
 }
 
-export async function GET(){
-    // await runMiddleware(req, res, cors);
-    await connectMongoDb();
-    const benefits = await Benefit.find();
-    console.log(benefits)
-    return NextResponse.json({benefits, message: "Users fetched successfully..."});
+// export async function POST (request){
+//     // await runMiddleware(req, res, cors);
+//     const{title, description} = await request.json();
+//     await connectMongoDb();
+//     await Benefit.create({title, description});
+//     return NextResponse.json({ title, description }, {status:201});
+// }
 
+export async function GET() {
+  // await runMiddleware(req, res, cors);
+  await connectMongoDb();
+  const benefits = await Benefit.find();
+  console.log(benefits);
+  return NextResponse.json({
+    benefits,
+    message: "Users fetched successfully...",
+  });
 }
-export async function DELETE(request){
-    // await runMiddleware(req, res, cors);
-    const id = request.nextUrl.searchParams.get("id");
-    await connectMongoDb();
-    await Benefit.findByIdAndDelete(id);        
-    return NextResponse.json({message:"topic delete"}, {status:201});
+
+export async function DELETE(request) {
+  // await runMiddleware(req, res, cors);
+  const id = request.nextUrl.searchParams.get("id");
+  await connectMongoDb();
+  await Benefit.findByIdAndDelete(id);
+  return NextResponse.json({ message: "topic delete" }, { status: 201 });
 }
-// export const POST = async (req) => {
-//     try {
-//         const {title, description} = await req.json();
-//         await connectMongoDb();
-//         await Benefit.create({
-//             title, description
-//         })
-//         return NextResponse.json({
-//             title,
-//             description,            
-//         },{
-//             status:201
-//         })
-
-//     } catch (error) {
-//         return NextResponse.json({
-//             message:"user create error"
-//         },{
-//             status:500
-//     })
-//     } finally {
-//         await disconnectMongoDb();
-//     }
-// }
-
-// export const GET = async () => {
-//     try {
-//         await connectMongoDb();
-//         const benefits = await Benefit.find(); 
-//         return NextResponse.json({
-//             benefits,
-//             message: "Users fetched successfully..."
-//         }, {
-//             status: 200
-//         });
-//     } catch (error) {
-//         return NextResponse.json({
-
-//             message: "Error fetching users"
-//         }, {
-//             status: 500
-//         });
-//     } finally {
-//         await disconnectMongoDb();
-//     }
-// }
-
-
-// export const DELETE = async (req) => {
-//     try {
-        
-//         const { id }  = await req.json(); // Assuming you provide the userId to delete
-//         await connectMongoDb();
-//         const deletedUser = await Benefit.findByIdAndDelete(id);
-        
-//         if (deletedUser) {
-//             return NextResponse.json({
-//                 message: "User deleted successfully..."
-//             }, {
-//                 status: 200
-//             });
-//         } else {
-//             return NextResponse.json({
-//                 message: "User not found"
-//             }, {
-//                 status: 404
-//             });
-//         }
-//     } catch (error) {
-//         return NextResponse.json({
-//             message: "Error deleting user"
-//         }, {
-//             status: 500
-//         });
-//     } finally {
-//         await disconnectMongoDb();
-//     }
-// }
-
-
